@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Tailwind v4: override `dark:` to be class-based (instead of prefers-color-scheme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+/* Subtle premium feel without introducing a custom color system */
+:root {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

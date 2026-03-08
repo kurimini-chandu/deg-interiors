@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEG Interiors | Premium Interior Design in Visakhapatnam</title>
+    <meta
+      name="description"
+      content="DEG Interiors — premium interior design studio in Visakhapatnam, Andhra Pradesh. Modular kitchens, wardrobes, furniture, false ceiling, painting, texture work, plumbing, electrical, CCTV, decor and more."
+    />
+    <script>
+      // Prevent theme flash on first paint
+      ;(() => {
+        try {
+          const stored = localStorage.getItem('deg-theme')
+          // Default to dark for a luxury look unless user explicitly chose light.
+          const shouldDark = stored ? stored === 'dark' : true
+          document.documentElement.classList.toggle('dark', shouldDark)
+        } catch {
+          // ignore
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
