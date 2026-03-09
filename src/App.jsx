@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowRight,
   Building2,
@@ -53,6 +53,8 @@ const BRAND = {
   mapsLinkUrl: `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`,
 }
 
+const _motion = motion
+
 function Reveal({ children, className, delay = 0, hover = false }) {
   return (
     <motion.div
@@ -98,7 +100,7 @@ function SectionHeader({ icon: Icon, kicker, title, description }) {
   return (
     <div className="mx-auto max-w-3xl text-center">
       <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200/70 bg-white/70 px-3 py-1 text-xs font-medium tracking-wide text-zinc-700 backdrop-blur dark:border-amber-300/20 dark:bg-zinc-950/50 dark:text-amber-200">
-        <Icon className="h-4 w-4" />
+        {Icon ? <Icon className="h-4 w-4" /> : null}
         <span className="uppercase">{kicker}</span>
       </div>
       <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 md:text-4xl">
@@ -216,19 +218,15 @@ function VideoCard({ title, src, delay = 0 }) {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('deg-theme') ?? 'dark'
+    } catch {
+      return 'dark'
+    }
+  })
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [hasScrolled, setHasScrolled] = useState(false)
-
-  const { scrollY } = useScroll()
-  const heroBgY = useTransform(scrollY, [0, 650], [0, 90])
-  const heroBgScale = useTransform(scrollY, [0, 650], [1, 1.06])
-
-  useEffect(() => {
-    const stored = localStorage.getItem('deg-theme')
-    // Default to dark for a premium/luxury feel.
-    setTheme(stored ?? 'dark')
-  }, [])
 
   useEffect(() => {
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
@@ -345,18 +343,6 @@ export default function App() {
     [],
   )
 
-  const instagramImages = useMemo(
-    () => [
-      '/images/project1.jpg',
-      '/images/project2.jpg',
-      '/images/project3.jpg',
-      '/images/project4.jpg',
-      '/images/project5.jpg',
-      '/images/project6.jpg',
-    ],
-    [],
-  )
-
   const prefersDark =
     typeof window !== 'undefined' &&
     window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
@@ -368,7 +354,7 @@ export default function App() {
       {/* Top navigation */}
       <header
         className={
-          "sticky top-0 z-50 border-b border-zinc-200/60 bg-white/80 backdrop-blur transition-shadow dark:border-zinc-800/60 dark:bg-zinc-950/70" +
+          "sticky top-0 z-50 border-b border-white/10 bg-black/55 backdrop-blur-[8px] transition-shadow" +
           (hasScrolled ? ' shadow-[0_18px_50px_-35px_rgba(0,0,0,0.55)]' : '')
         }
       >
@@ -395,7 +381,7 @@ export default function App() {
             <button
               type="button"
               aria-label="Toggle theme"
-              className="inline-flex items-center justify-center rounded-xl border border-zinc-200/70 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition hover:bg-zinc-50 dark:border-amber-300/20 dark:bg-zinc-950 dark:text-amber-200 dark:hover:border-amber-300/35"
+              className="inline-flex items-center justify-center rounded-xl border border-zinc-200/70 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-50 hover:brightness-105 dark:border-amber-300/20 dark:bg-zinc-950 dark:text-amber-200 dark:hover:border-amber-300/35"
               onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -403,7 +389,7 @@ export default function App() {
 
             <a
               href="#contact"
-              className="hidden items-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-zinc-900 dark:bg-amber-300 dark:text-zinc-950 dark:hover:bg-amber-200 md:inline-flex"
+              className="hidden items-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-900 hover:brightness-105 dark:bg-amber-300 dark:text-zinc-950 dark:hover:bg-amber-200 md:inline-flex"
             >
               Book Consultation
               <ArrowRight className="h-4 w-4" />
@@ -414,91 +400,93 @@ export default function App() {
 
       {/* Hero */}
       <section id="top" className="relative">
-        <div className="relative min-h-[92vh] overflow-hidden">
-          <motion.div
+        <div className="relative min-h-screen overflow-hidden bg-black">
+          <div
+            aria-hidden="true"
             className="absolute inset-0"
             style={{
-              y: heroBgY,
-              scale: heroBgScale,
               backgroundImage:
-                'url(https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=2400&q=70)',
+                "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('/images/project6.jpg')",
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: 'center 70%',
+              backgroundRepeat: 'no-repeat',
+              transform: 'none',
+              filter: 'none',
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,rgba(255,255,255,0.08),transparent_55%)]" />
 
-          <div className="relative mx-auto flex min-h-[92vh] max-w-7xl items-center px-4 py-16 md:px-6">
-            <div className="relative max-w-2xl rounded-3xl border border-white/10 bg-black/25 p-6 backdrop-blur md:p-8">
-              <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-tr from-amber-300/10 via-white/5 to-transparent blur-2xl" />
-              <div className="relative">
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white/90 backdrop-blur"
-              >
-                <span className="uppercase">{BRAND.name}</span>
-                <span className="text-white/50">•</span>
-                <span className="text-amber-200">{BRAND.city}</span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 }}
-                className="mt-5 text-balance text-4xl font-semibold tracking-tight text-white md:text-6xl"
-              >
-                <span className="text-amber-200">Luxury</span> Interior Design in {BRAND.city}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.12 }}
-                className="mt-5 text-pretty text-base leading-7 text-white/80 md:text-lg"
-              >
-                Premium interiors with a modern, architectural finish — modular kitchens, wardrobes, furniture, false ceiling, painting, texture work, electrical, plumbing, decor and more.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.18 }}
-                className="mt-8 flex flex-col gap-3 sm:flex-row"
-              >
-                <a
-                  href="#contact"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-zinc-950 shadow-sm transition hover:-translate-y-0.5 hover:bg-zinc-200 dark:bg-amber-300 dark:hover:bg-amber-200"
-                >
-                  Book Consultation
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </a>
-                <a
-                  href="#gallery"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
-                >
-                  View Projects
-                  <Camera className="h-4 w-4 transition-transform duration-300 group-hover:scale-105" />
-                </a>
-              </motion.div>
-
-              <div className="mt-10 grid grid-cols-2 gap-4 text-white/85 sm:grid-cols-3">
-                {[
-                  { label: 'Design-to-Execution', value: 'End-to-end' },
-                  { label: 'Premium Materials', value: 'Curated' },
-                  { label: 'On-time Delivery', value: 'Planned' },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-2xl border border-white/10 bg-black/20 p-4 backdrop-blur"
+          <div className="relative mx-auto flex min-h-screen max-w-7xl items-center justify-start px-4 md:px-6">
+            <div className="w-full max-w-[480px]">
+              <div className="relative w-full rounded-[20px] border border-white/10 bg-black/45 p-7 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-[10px]">
+                <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-tr from-amber-300/10 via-white/5 to-transparent blur-2xl" />
+                <div className="relative">
+                  <motion.div
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                    className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white/90 backdrop-blur"
                   >
-                    <div className="text-xl font-semibold text-white">{item.value}</div>
-                    <div className="mt-1 text-xs text-white/60">{item.label}</div>
+                    <span className="uppercase">{BRAND.name}</span>
+                    <span className="text-white/50">•</span>
+                    <span className="text-amber-200">Visakhapatnam | Hyderabad</span>
+                  </motion.div>
+
+                  <motion.h1
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 }}
+                    className="mt-5 text-balance text-[clamp(34px,4.8vw,48px)] font-bold leading-[1.1] tracking-tight text-white"
+                  >
+                    <span className="text-amber-200">Luxury</span> Interior Design in Visakhapatnam & Hyderabad
+                  </motion.h1>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.12 }}
+                    className="mt-5 text-pretty text-base leading-7 text-white/80 md:text-lg"
+                  >
+                    Premium interiors with a modern, architectural finish — modular kitchens, wardrobes, furniture, false ceiling, painting, texture work, electrical, plumbing, decor and more.
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.18 }}
+                    className="mt-8 flex flex-col gap-3 sm:flex-row"
+                  >
+                    <a
+                      href="#contact"
+                      className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-zinc-950 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-200 hover:brightness-105 dark:bg-amber-300 dark:hover:bg-amber-200"
+                    >
+                      Book Consultation
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </a>
+                    <a
+                      href="#gallery"
+                      className="group inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-white/15"
+                    >
+                      View Projects
+                      <Camera className="h-4 w-4 transition-transform duration-300 group-hover:scale-105" />
+                    </a>
+                  </motion.div>
+
+                  <div className="mt-10 grid grid-cols-2 gap-4 text-white/85 sm:grid-cols-3">
+                    {[
+                      { label: 'Design-to-Execution', value: 'End-to-end' },
+                      { label: 'Premium Materials', value: 'Curated' },
+                      { label: 'On-time Delivery', value: 'Planned' },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-2xl border border-white/10 bg-black/20 p-4 backdrop-blur"
+                      >
+                        <div className="text-xl font-semibold text-white">{item.value}</div>
+                        <div className="mt-1 text-xs text-white/60">{item.label}</div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
               </div>
             </div>
           </div>
@@ -560,8 +548,23 @@ export default function App() {
       </MotionSection>
 
       {/* Services */}
-      <MotionSection id="services" className="border-t border-zinc-200/60 py-20 dark:border-zinc-800/60">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <MotionSection
+        id="services"
+        className="relative overflow-hidden border-t border-zinc-200/60 py-20 dark:border-zinc-800/60"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <div
+            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-[1px]"
+            style={{ backgroundImage: 'url(/images/project11.jpg)' }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,rgba(251,191,36,0.10),transparent_55%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             icon={Building2}
             kicker="Services"
@@ -603,8 +606,23 @@ export default function App() {
       </MotionSection>
 
       {/* Project Gallery */}
-      <MotionSection id="gallery" className="border-t border-zinc-200/60 py-20 dark:border-zinc-800/60">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <MotionSection
+        id="gallery"
+        className="relative overflow-hidden border-t border-zinc-200/60 py-20 dark:border-zinc-800/60"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <div
+            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/images/project12.jpg)' }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,191,36,0.08),transparent_55%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             icon={Camera}
             kicker="Projects"
@@ -650,20 +668,19 @@ export default function App() {
       <AnimatePresence>
         {lightboxIndex != null ? (
           <motion.div
-            className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
+            key="lightbox"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 px-4 py-8"
             onClick={() => setLightboxIndex(null)}
-            role="dialog"
-            aria-modal="true"
           >
             <motion.div
-              className="relative mx-auto flex h-full max-w-6xl items-center justify-center px-4 py-10"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={{ opacity: 0, scale: 0.98, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: 10 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="relative w-full max-w-5xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -705,69 +722,24 @@ export default function App() {
         </div>
       </MotionSection>
 
-      {/* Instagram */}
-      <MotionSection id="instagram" className="border-t border-zinc-200/60 py-20 dark:border-zinc-800/60">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <SectionHeader
-            icon={Instagram}
-            kicker="Social"
-            title="Instagram"
-            description="Latest posts preview — follow for ongoing site updates and finishing details."
-          />
-
-          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
-            {instagramImages.map((src, idx) => (
-              <motion.a
-                key={`${src}-${idx}`}
-                href={BRAND.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.55, ease: 'easeOut', delay: idx * 0.03 }}
-                className="group relative aspect-square overflow-hidden rounded-3xl border border-zinc-200/70 bg-zinc-100 shadow-sm shadow-black/5 dark:border-amber-300/15 dark:bg-zinc-900 dark:shadow-black/40"
-              >
-                <img
-                  src={src}
-                  alt={`Instagram post ${idx + 1}`}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 transition group-hover:opacity-100" />
-                <div className="absolute inset-0 grid place-items-center opacity-0 transition group-hover:opacity-100">
-                  <Instagram className="h-6 w-6 text-white" />
-                </div>
-              </motion.a>
-            ))}
-          </div>
-
-          <div className="mt-10 flex justify-center">
-            <motion.a
-              href={BRAND.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -3 }}
-              whileTap={{ scale: 0.99 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
-              className="group relative inline-flex items-center justify-center rounded-2xl p-[1px] shadow-sm shadow-black/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/20 dark:shadow-black/40 dark:focus-visible:ring-amber-300/30"
-              aria-label="View Instagram Profile"
-            >
-              <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-fuchsia-500 via-rose-500 to-amber-400 opacity-85 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative inline-flex items-center gap-2 rounded-2xl border border-zinc-200/70 bg-white px-5 py-3 text-sm font-semibold text-zinc-950 backdrop-blur transition group-hover:bg-zinc-50 dark:border-white/10 dark:bg-zinc-950/85 dark:text-white dark:group-hover:bg-zinc-950">
-                <Instagram className="h-4 w-4" />
-                View Instagram Profile
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </span>
-            </motion.a>
-          </div>
-        </div>
-      </MotionSection>
-
       {/* Contact */}
-      <MotionSection id="contact" className="border-t border-zinc-200/60 py-20 dark:border-zinc-800/60">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <MotionSection
+        id="contact"
+        className="relative overflow-hidden border-t border-zinc-200/60 py-20 dark:border-zinc-800/60"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <div
+            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/images/project25.jpg)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/45" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_0%,rgba(251,191,36,0.10),transparent_55%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             icon={MessageCircle}
             kicker="Contact"
@@ -776,103 +748,105 @@ export default function App() {
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <Reveal className="rounded-3xl border border-zinc-200/70 bg-white p-7 shadow-sm dark:border-amber-300/15 dark:bg-zinc-950">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <a
-                  className="rounded-2xl border border-zinc-200/70 bg-zinc-50 p-5 transition hover:bg-white dark:border-amber-300/15 dark:bg-zinc-900/50 dark:hover:border-amber-300/30"
-                  href={`tel:${BRAND.phones[0].e164}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-zinc-950 dark:bg-zinc-950 dark:text-amber-200">
-                      <Phone className="h-5 w-5" />
-                    </span>
+            <Reveal className="flex items-center justify-center rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-sm dark:border-amber-300/15 dark:bg-zinc-950 md:p-7">
+              <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-7 shadow-[0_40px_120px_-85px_rgba(0,0,0,0.95)] backdrop-blur">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,191,36,0.18),transparent_55%)]" />
+                <div className="relative">
+                  <div className="flex items-start justify-between gap-6">
                     <div>
-                      <div className="text-sm font-semibold">Phone</div>
-                      <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                        {BRAND.phones[0].display}
+                      <div className="text-xs font-semibold tracking-[0.25em] text-amber-200/90">
+                        DEG INTERIORS
+                      </div>
+                      <div className="mt-2 text-2xl font-semibold tracking-tight text-white">
+                        Experts in Modular Kitchens
+                      </div>
+                    </div>
+                    <div className="hidden rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-right text-xs text-white/70 backdrop-blur sm:block">
+                      <div className="font-semibold text-white/90">{BRAND.serviceRegions}</div>
+                      <div className="mt-1">Visakhapatnam • Hyderabad</div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid gap-6 md:grid-cols-2">
+                    <div>
+                      <div className="text-xs font-semibold tracking-widest text-white/70">SERVICES</div>
+                      <div className="mt-2 text-sm leading-6 text-white/85">
+                        Wardrobes
+                        <br />
+                        Furniture
+                        <br />
+                        False Ceiling
+                        <br />
+                        Texture Work
+                        <br />
+                        Plumbing
+                        <br />
+                        Painting
+                        <br />
+                        CCTV Work
+                        <br />
+                        House Keeping
+                        <br />
+                        Deco Work
+                      </div>
+                    </div>
+
+                    <div className="space-y-5">
+                      <div>
+                        <div className="text-xs font-semibold tracking-widest text-white/70">PHONE</div>
+                        <div className="mt-2 space-y-1 text-sm font-semibold text-white">
+                          <a className="hover:text-amber-200" href={`tel:${BRAND.phones[0].e164}`}>
+                            {BRAND.phones[0].display}
+                          </a>
+                          <br />
+                          <a className="hover:text-amber-200" href={`tel:${BRAND.phones[1].e164}`}>
+                            {BRAND.phones[1].display}
+                          </a>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="text-xs font-semibold tracking-widest text-white/70">EMAIL</div>
+                        <div className="mt-2 text-sm font-semibold text-white">
+                          <a className="hover:text-amber-200" href={`mailto:${BRAND.email}`}>
+                            {BRAND.email}
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </a>
 
-                <a
-                  className="rounded-2xl border border-zinc-200/70 bg-zinc-50 p-5 transition hover:bg-white dark:border-amber-300/15 dark:bg-zinc-900/50 dark:hover:border-amber-300/30"
-                  href={`tel:${BRAND.phones[1].e164}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-zinc-950 dark:bg-zinc-950 dark:text-amber-200">
-                      <Phone className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold">Phone</div>
-                      <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                        {BRAND.phones[1].display}
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                  <div className="mt-6">
+                    <div className="text-xs font-semibold tracking-widest text-white/70">LOCATIONS</div>
+                    <div className="mt-2 text-sm font-semibold text-white/90">Visakhapatnam | Hyderabad</div>
 
-                <a
-                  className="rounded-2xl border border-zinc-200/70 bg-zinc-50 p-5 transition hover:bg-white dark:border-amber-300/15 dark:bg-zinc-900/50 dark:hover:border-amber-300/30"
-                  href={`https://wa.me/${BRAND.whatsappE164.replace('+', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-zinc-950 dark:bg-zinc-950 dark:text-amber-200">
-                      <MessageCircle className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold">WhatsApp</div>
-                      <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                        Chat on {BRAND.phones[0].display}
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-white/85 backdrop-blur">
+                        <div className="font-semibold text-white">Visakhapatnam Office</div>
+                        <div className="mt-1 text-xs leading-5 text-white/70">
+                          Shakshi Ganapathi Temple Road
+                          <br />
+                          Railway New Colony
+                          <br />
+                          Visakhapatnam – 530016
+                          <br />
+                          Andhra Pradesh, India
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </a>
 
-                <a
-                  className="rounded-2xl border border-zinc-200/70 bg-zinc-50 p-5 transition hover:bg-white dark:border-amber-300/15 dark:bg-zinc-900/50 dark:hover:border-amber-300/30"
-                  href={`mailto:${BRAND.email}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-zinc-950 dark:bg-zinc-950 dark:text-amber-200">
-                      <Mail className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold">Email</div>
-                      <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                        {BRAND.email}
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
-                <div className="sm:col-span-2 rounded-2xl border border-zinc-200/70 bg-zinc-50 p-5 dark:border-amber-300/15 dark:bg-zinc-900/50">
-                  <div className="flex items-start gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-zinc-950 dark:bg-zinc-950 dark:text-amber-200">
-                      <MapPin className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold">Address</div>
-                      <div className="mt-1 space-y-0.5 text-sm text-zinc-600 dark:text-zinc-300">
-                        {BRAND.addressLines.map((line) => (
-                          <div key={line}>{line}</div>
-                        ))}
-                      </div>
-                      <div className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
-                        Owner: {BRAND.owner}
-                      </div>
-                      <div className="mt-3">
-                        <a
-                          href={BRAND.mapsLinkUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-950 hover:opacity-80 dark:text-amber-200"
-                        >
-                          Open in Google Maps
-                          <ArrowRight className="h-4 w-4" />
-                        </a>
+                      <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-white/85 backdrop-blur">
+                        <div className="font-semibold text-white">Hyderabad Office</div>
+                        <div className="mt-1 text-xs leading-5 text-white/70">
+                          Vengalrao Nagar
+                          <br />
+                          SR Nagar
+                          <br />
+                          Beside Metro Station
+                          <br />
+                          Hyderabad
+                          <br />
+                          Telangana, India
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -882,9 +856,7 @@ export default function App() {
 
             <Reveal className="overflow-hidden rounded-3xl border border-zinc-200/70 bg-white shadow-sm dark:border-amber-300/15 dark:bg-zinc-950" delay={0.05}>
               <div className="p-7">
-                <div className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
-                  Find us on Maps
-                </div>
+                <div className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Find us on Maps</div>
                 <div className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
                   {BRAND.city}, {BRAND.region}
                 </div>
