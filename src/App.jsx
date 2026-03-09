@@ -408,7 +408,7 @@ export default function App() {
 
       {/* Hero */}
       <section id="top" className="relative">
-        <div className="relative min-h-screen overflow-hidden bg-black">
+        <div className="relative min-h-[110vh] overflow-hidden bg-black">
           <div
             aria-hidden="true"
             className="absolute inset-0"
@@ -424,7 +424,7 @@ export default function App() {
             }}
           />
 
-          <div className="relative mx-auto flex min-h-screen max-w-7xl items-center justify-start px-4 py-16 md:px-6 md:py-0">
+          <div className="relative mx-auto flex min-h-[110vh] max-w-7xl items-center justify-start px-4 py-16 md:px-6 md:py-0">
             <div className="w-full max-w-[480px]">
               <div className="relative w-full rounded-[20px] border border-white/10 bg-black/45 p-7 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-[10px]">
                 <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-tr from-amber-300/10 via-white/5 to-transparent blur-2xl" />
@@ -562,7 +562,7 @@ export default function App() {
       {/* Services */}
       <MotionSection
         id="services"
-        className="relative overflow-hidden border-t border-zinc-200/60 py-20 dark:border-zinc-800/60"
+        className="relative overflow-hidden border-t border-zinc-200/60 py-24 dark:border-zinc-800/60"
       >
         <div
           aria-hidden="true"
@@ -584,7 +584,7 @@ export default function App() {
             description="A focused set of interior services delivered with consistent quality and refined finishing."
           />
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, idx) => (
               <Reveal
                 key={s.title}
@@ -655,13 +655,13 @@ export default function App() {
                 viewport={{ once: true, amount: 0.2 }}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: (idx % 8) * 0.03 }}
-                className="group relative mb-4 w-full break-inside-avoid overflow-hidden rounded-3xl border border-zinc-200/70 bg-zinc-100 text-left shadow-sm shadow-black/5 outline-none transition hover:border-zinc-300 focus-visible:ring-2 focus-visible:ring-zinc-950/15 dark:border-amber-300/15 dark:bg-zinc-900 dark:shadow-black/40 dark:hover:border-amber-300/30 dark:focus-visible:ring-amber-300/30"
+                className="group relative mb-4 w-full break-inside-avoid overflow-hidden rounded-3xl border border-zinc-200/70 bg-zinc-100 text-left shadow-xl outline-none transition hover:border-zinc-300 focus-visible:ring-2 focus-visible:ring-zinc-950/15 dark:border-amber-300/15 dark:bg-zinc-900 dark:shadow-black/40 dark:hover:border-amber-300/30 dark:focus-visible:ring-amber-300/30"
               >
                 <img
                   src={src}
                   alt={`DEG Interiors project ${idx + 1}`}
                   loading="lazy"
-                  className="block h-auto w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  className="block h-auto w-full object-cover transition-all duration-[400ms] ease-[ease] group-hover:scale-[1.03]"
                 />
 
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/0 to-black/0 opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -738,7 +738,7 @@ export default function App() {
       {/* Contact */}
       <MotionSection
         id="contact"
-        className="relative overflow-hidden border-t border-zinc-200/60 py-20 dark:border-zinc-800/60"
+        className="relative overflow-hidden border-t border-zinc-200/60 pb-20 pt-24 dark:border-zinc-800/60"
       >
         <div
           aria-hidden="true"
