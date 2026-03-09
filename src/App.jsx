@@ -42,7 +42,7 @@ const BRAND = {
   ],
   whatsappE164: '+919494781100',
   email: 'paintplayers@gmail.com',
-  instagramUrl: 'https://instagram.com/pollakiran',
+  instagramUrl: 'https://www.instagram.com/deg_interiors',
   addressLines: [
     'Shakshi Ganapathi Temple Road',
     'Railway New Colony',
@@ -374,6 +374,15 @@ export default function App() {
             <NavLink href="#services">Services</NavLink>
             <NavLink href="#gallery">Gallery</NavLink>
             <NavLink href="#videos">Videos</NavLink>
+            <a
+              href={BRAND.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-300 transition-all duration-300 hover:border-[#E1306C] hover:bg-[#E1306C] hover:text-white"
+            >
+              <Instagram className="h-4 w-4" />
+              View Instagram
+            </a>
             <NavLink href="#contact">Contact</NavLink>
           </nav>
 
@@ -386,6 +395,16 @@ export default function App() {
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
+
+            <a
+              href={BRAND.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-300 transition-all duration-300 hover:border-[#E1306C] hover:bg-[#E1306C] hover:text-white md:hidden"
+            >
+              <Instagram className="h-4 w-4" />
+              View Instagram
+            </a>
 
             <a
               href="tel:+919494781100"
