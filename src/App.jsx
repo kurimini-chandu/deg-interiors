@@ -388,6 +388,14 @@ export default function App() {
             </button>
 
             <a
+              href="tel:+919494781100"
+              className="hidden items-center gap-2 rounded-xl bg-amber-300 px-4 py-2 text-sm font-medium text-zinc-950 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-amber-200 hover:brightness-105 md:inline-flex"
+            >
+              <Phone className="h-4 w-4" />
+              Call Now
+            </a>
+
+            <a
               href="#contact"
               className="hidden items-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-900 hover:brightness-105 dark:bg-amber-300 dark:text-zinc-950 dark:hover:bg-amber-200 md:inline-flex"
             >
@@ -406,16 +414,17 @@ export default function App() {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('/images/project6.jpg')",
+                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project6.jpg')",
               backgroundSize: 'cover',
-              backgroundPosition: 'center 70%',
+              backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
+              backgroundColor: '#0f0f0f',
               transform: 'none',
               filter: 'none',
             }}
           />
 
-          <div className="relative mx-auto flex min-h-screen max-w-7xl items-center justify-start px-4 md:px-6">
+          <div className="relative mx-auto flex min-h-screen max-w-7xl items-center justify-start px-4 py-16 md:px-6 md:py-0">
             <div className="w-full max-w-[480px]">
               <div className="relative w-full rounded-[20px] border border-white/10 bg-black/45 p-7 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-[10px]">
                 <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-tr from-amber-300/10 via-white/5 to-transparent blur-2xl" />
@@ -494,7 +503,10 @@ export default function App() {
       </section>
 
       {/* About */}
-      <MotionSection id="about" className="border-t border-zinc-200/60 py-20 dark:border-zinc-800/60">
+      <MotionSection
+        id="about"
+        className="border-t border-zinc-200/60 bg-white py-20 dark:border-zinc-800/60 dark:bg-zinc-950"
+      >
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeader
             icon={Building2}
@@ -615,11 +627,12 @@ export default function App() {
           className="pointer-events-none absolute inset-0"
         >
           <div
-            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url(/images/project12.jpg)' }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/project26.jpg')",
+            }}
           />
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(251,191,36,0.08),transparent_55%)]" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
@@ -732,11 +745,12 @@ export default function App() {
           className="pointer-events-none absolute inset-0"
         >
           <div
-            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url(/images/project25.jpg)' }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/project26.jpg')",
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/45" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_0%,rgba(251,191,36,0.10),transparent_55%)]" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
