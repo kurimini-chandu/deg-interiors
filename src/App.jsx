@@ -499,7 +499,7 @@ export default function App() {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project27.jpg')",
+                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project28.jpg')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
@@ -509,79 +509,41 @@ export default function App() {
             }}
           />
 
-          <div className="relative mx-auto flex min-h-[110vh] max-w-7xl items-center justify-start px-4 py-16 md:px-6 md:py-0">
-            <div className="w-full max-w-[480px]">
-              <div className="relative w-full rounded-[20px] border border-white/10 bg-black/45 p-7 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-[10px]">
-                <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-tr from-amber-300/10 via-white/5 to-transparent blur-2xl" />
-                <div className="relative">
-                  <motion.div
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white/90 backdrop-blur"
-                  >
-                    <span className="uppercase">{BRAND.name}</span>
-                    <span className="text-white/50">•</span>
-                    <span className="text-amber-200">Visakhapatnam | Hyderabad</span>
-                  </motion.div>
+          <div className="relative mx-auto flex min-h-[110vh] max-w-7xl items-center justify-center px-4 py-16 text-center md:px-6 md:py-0">
+            <div className="mt-10 max-w-3xl">
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: 'easeOut' }}
+                className="text-balance text-5xl font-semibold tracking-tight text-white md:text-6xl"
+              >
+                We Design Elegant
+                <br />
+                Modern Living Spaces
+              </motion.h1>
 
-                  <motion.h1
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 }}
-                    className="mt-5 text-balance text-[clamp(34px,4.8vw,48px)] font-bold leading-[1.1] tracking-tight text-white"
-                  >
-                    <span className="text-amber-200">Luxury</span> Interior Design in Visakhapatnam & Hyderabad
-                  </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.08 }}
+                className="mt-6 text-pretty text-base leading-7 text-white/85 md:text-lg"
+              >
+                {BRAND.name} creates premium interiors in Visakhapatnam and Hyderabad — combining modern design, clean layouts, and architectural finishing.
+              </motion.p>
 
-                  <motion.p
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.12 }}
-                    className="mt-5 text-pretty text-base leading-7 text-white/80 md:text-lg"
-                  >
-                    Premium interiors with a modern, architectural finish — modular kitchens, wardrobes, furniture, false ceiling, painting, texture work, electrical, plumbing, decor and more.
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.18 }}
-                    className="mt-8 flex flex-col gap-3 sm:flex-row"
-                  >
-                    <a
-                      href="#contact"
-                      className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-zinc-950 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-200 hover:brightness-105 dark:bg-amber-300 dark:hover:bg-amber-200"
-                    >
-                      Book Consultation
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    </a>
-                    <a
-                      href="#gallery"
-                      className="group inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-white/15"
-                    >
-                      View Projects
-                      <Camera className="h-4 w-4 transition-transform duration-300 group-hover:scale-105" />
-                    </a>
-                  </motion.div>
-
-                  <div className="mt-10 grid grid-cols-2 gap-4 text-white/85 sm:grid-cols-3">
-                    {[
-                      { label: 'Design-to-Execution', value: 'End-to-end' },
-                      { label: 'Premium Materials', value: 'Curated' },
-                      { label: 'On-time Delivery', value: 'Planned' },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="rounded-2xl border border-white/10 bg-black/20 p-4 backdrop-blur"
-                      >
-                        <div className="text-xl font-semibold text-white">{item.value}</div>
-                        <div className="mt-1 text-xs text-white/60">{item.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.16 }}
+                className="mt-8"
+              >
+                <a
+                  href="#gallery"
+                  className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-black/30 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                >
+                  View Our Projects
+                </a>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -654,8 +616,8 @@ export default function App() {
           className="pointer-events-none absolute inset-0"
         >
           <div
-            className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-[1px]"
-            style={{ backgroundImage: 'url(/images/project11.jpg)' }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/images/project1.jpg)' }}
           />
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,rgba(251,191,36,0.10),transparent_55%)]" />
@@ -1005,7 +967,7 @@ export default function App() {
       <a
         href="tel:+919494781100"
         aria-label="Call now"
-        className="group fixed bottom-24 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#facc15] text-zinc-950 shadow-lg shadow-black/30 transition hover:-translate-y-0.5 hover:bg-[#fde047] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#facc15]/60"
+        className="group fixed bottom-24 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-black/30 transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
       >
         <span className="pointer-events-none absolute right-full mr-3 hidden items-center rounded-full bg-zinc-950 px-3 py-1 text-xs font-medium text-white shadow-sm shadow-black/30 opacity-0 transition group-hover:opacity-100 md:inline-flex">
           Call Now
