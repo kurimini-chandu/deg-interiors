@@ -493,15 +493,15 @@ export default function App() {
 
       {/* Hero */}
       <section id="top" className="relative">
-        <div className="relative min-h-[80vh] overflow-hidden bg-black md:min-h-[90vh] lg:min-h-screen">
+        <div className="relative w-full min-h-[90vh] overflow-hidden bg-black md:min-h-screen">
           <div
             aria-hidden="true"
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project28.jpg')",
+                "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('/images/project28.jpg')",
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: 'center center',
               backgroundRepeat: 'no-repeat',
               backgroundColor: '#0f0f0f',
               transform: 'none',
@@ -509,13 +509,13 @@ export default function App() {
             }}
           />
 
-          <div className="relative mx-auto flex min-h-[80vh] max-w-7xl items-center justify-center px-4 py-14 text-center md:min-h-[90vh] md:px-6 md:py-0 lg:min-h-screen">
+          <div className="relative mx-auto flex min-h-[90vh] max-w-7xl items-center justify-center px-3 py-12 text-center md:min-h-screen md:px-6 md:py-0">
             <div className="max-w-3xl">
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: 'easeOut' }}
-                className="text-balance text-5xl font-semibold tracking-tight text-white md:text-6xl"
+                className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl"
               >
                 We Design Elegant
                 <br />
