@@ -493,7 +493,7 @@ export default function App() {
 
       {/* Hero */}
       <section id="top" className="relative">
-        <div className="relative min-h-[110vh] overflow-hidden bg-black">
+        <div className="relative min-h-[80vh] overflow-hidden bg-black md:min-h-[90vh] lg:min-h-screen">
           <div
             aria-hidden="true"
             className="absolute inset-0"
@@ -509,8 +509,8 @@ export default function App() {
             }}
           />
 
-          <div className="relative mx-auto flex min-h-[110vh] max-w-7xl items-center justify-center px-4 py-16 text-center md:px-6 md:py-0">
-            <div className="mt-10 max-w-3xl">
+          <div className="relative mx-auto flex min-h-[80vh] max-w-7xl items-center justify-center px-4 py-14 text-center md:min-h-[90vh] md:px-6 md:py-0 lg:min-h-screen">
+            <div className="max-w-3xl">
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
