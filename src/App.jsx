@@ -13,6 +13,7 @@ import {
   LayoutGrid,
   Mail,
   MapPin,
+  Menu,
   MessageCircle,
   Moon,
   Paintbrush,
@@ -227,6 +228,7 @@ export default function App() {
   })
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
@@ -258,6 +260,22 @@ export default function App() {
       document.body.style.overflow = prevOverflow
     }
   }, [lightboxIndex])
+
+  useEffect(() => {
+    if (!menuOpen) return
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [menuOpen])
 
   const services = useMemo(
     () => [
@@ -369,23 +387,6 @@ export default function App() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-6 md:flex">
-            <NavLink href="#about">About</NavLink>
-            <NavLink href="#services">Services</NavLink>
-            <NavLink href="#gallery">Gallery</NavLink>
-            <NavLink href="#videos">Videos</NavLink>
-            <a
-              href={BRAND.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-300 transition-all duration-300 hover:border-[#E1306C] hover:bg-[#E1306C] hover:text-white"
-            >
-              <Instagram className="h-4 w-4" />
-              View Instagram
-            </a>
-            <NavLink href="#contact">Contact</NavLink>
-          </nav>
-
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -397,33 +398,98 @@ export default function App() {
             </button>
 
             <a
-              href={BRAND.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-300 transition-all duration-300 hover:border-[#E1306C] hover:bg-[#E1306C] hover:text-white md:hidden"
-            >
-              <Instagram className="h-4 w-4" />
-              View Instagram
-            </a>
-
-            <a
-              href="tel:+919494781100"
-              className="hidden items-center gap-2 rounded-xl bg-amber-300 px-4 py-2 text-sm font-medium text-zinc-950 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-amber-200 hover:brightness-105 md:inline-flex"
-            >
-              <Phone className="h-4 w-4" />
-              Call Now
-            </a>
-
-            <a
               href="#contact"
               className="hidden items-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-zinc-900 hover:brightness-105 dark:bg-amber-300 dark:text-zinc-950 dark:hover:bg-amber-200 md:inline-flex"
             >
               Book Consultation
               <ArrowRight className="h-4 w-4" />
             </a>
+
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => setMenuOpen(true)}
+              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white/85 shadow-sm transition-all duration-300 ease-[ease] hover:-translate-y-0.5 hover:bg-white/10"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Slide-in Menu */}
+      <AnimatePresence>
+        {menuOpen ? (
+          <motion.div
+            key="menu"
+            className="fixed inset-0 z-[90]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/60"
+              onClick={() => setMenuOpen(false)}
+            />
+
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.28, ease: 'easeOut' }}
+              className="absolute right-0 top-0 h-full w-[340px] max-w-[88vw] border-l border-white/10 bg-black/70 p-5 text-white backdrop-blur"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site menu"
+            >
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-semibold tracking-tight">Menu</div>
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setMenuOpen(false)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 transition hover:bg-white/10"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="mt-6 space-y-2">
+                {[
+                  { label: 'About', href: '#about' },
+                  { label: 'Services', href: '#services' },
+                  { label: 'Gallery', href: '#gallery' },
+                  { label: 'Videos', href: '#videos' },
+                  { label: 'Contact', href: '#contact' },
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                  >
+                    {item.label}
+                    <ArrowRight className="h-4 w-4 text-white/60" />
+                  </a>
+                ))}
+
+                <a
+                  href={BRAND.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Instagram className="h-4 w-4" />
+                    Instagram
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-white/60" />
+                </a>
+              </div>
+            </motion.aside>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       {/* Hero */}
       <section id="top" className="relative">
@@ -433,7 +499,7 @@ export default function App() {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project6.jpg')",
+                "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/project27.jpg')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
@@ -934,6 +1000,18 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Call Button */}
+      <a
+        href="tel:+919494781100"
+        aria-label="Call now"
+        className="group fixed bottom-24 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#facc15] text-zinc-950 shadow-lg shadow-black/30 transition hover:-translate-y-0.5 hover:bg-[#fde047] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#facc15]/60"
+      >
+        <span className="pointer-events-none absolute right-full mr-3 hidden items-center rounded-full bg-zinc-950 px-3 py-1 text-xs font-medium text-white shadow-sm shadow-black/30 opacity-0 transition group-hover:opacity-100 md:inline-flex">
+          Call Now
+        </span>
+        <Phone className="h-6 w-6" />
+      </a>
 
       {/* Floating WhatsApp Button */}
       <a
