@@ -383,7 +383,7 @@ export default function App() {
             </span>
             <div className="leading-tight">
               <div className="text-sm font-semibold tracking-tight">{BRAND.name}</div>
-              <div className="text-xs text-zinc-500 dark:text-zinc-400">{BRAND.city}</div>
+              <div className="text-xs text-zinc-500 dark:text-zinc-400">Visakhapatnam | Hyderabad</div>
             </div>
           </a>
 
@@ -522,14 +522,19 @@ export default function App() {
                 Modern Living Spaces
               </motion.h1>
 
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: 'easeOut', delay: 0.08 }}
-                className="mt-6 text-pretty text-base leading-7 text-white/85 md:text-lg"
+                className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-3"
               >
-                {BRAND.name} creates premium interiors in Visakhapatnam and Hyderabad — combining modern design, clean layouts, and architectural finishing.
-              </motion.p>
+                <span className="inline-flex items-center rounded-[20px] border border-[rgba(255,215,0,0.4)] bg-[rgba(255,215,0,0.15)] px-4 py-2 text-sm font-medium text-amber-100 shadow-sm shadow-black/20">
+                  Visakhapatnam
+                </span>
+                <span className="inline-flex items-center rounded-[20px] border border-[rgba(59,130,246,0.4)] bg-[rgba(59,130,246,0.15)] px-4 py-2 text-sm font-medium text-blue-100 shadow-sm shadow-black/20">
+                  Hyderabad
+                </span>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
