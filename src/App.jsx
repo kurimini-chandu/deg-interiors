@@ -526,12 +526,14 @@ export default function App() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: 'easeOut', delay: 0.08 }}
-                className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-3"
+                className="mt-[18px] flex flex-col items-center justify-center gap-[14px] sm:flex-row sm:flex-wrap"
               >
-                <span className="inline-flex items-center rounded-[20px] border border-[rgba(255,215,0,0.4)] bg-[rgba(255,215,0,0.15)] px-4 py-2 text-sm font-medium text-amber-100 shadow-sm shadow-black/20">
+                <span className="inline-flex items-center gap-2 rounded-[30px] border border-[rgba(255,215,0,0.4)] bg-[rgba(255,215,0,0.15)] px-[18px] py-2 text-sm font-medium text-[#FFD700] shadow-sm shadow-black/20 backdrop-blur">
+                  <MapPin className="h-4 w-4" />
                   Visakhapatnam
                 </span>
-                <span className="inline-flex items-center rounded-[20px] border border-[rgba(59,130,246,0.4)] bg-[rgba(59,130,246,0.15)] px-4 py-2 text-sm font-medium text-blue-100 shadow-sm shadow-black/20">
+                <span className="inline-flex items-center gap-2 rounded-[30px] border border-[rgba(59,130,246,0.4)] bg-[rgba(59,130,246,0.15)] px-[18px] py-2 text-sm font-medium text-[#3B82F6] shadow-sm shadow-black/20 backdrop-blur">
+                  <MapPin className="h-4 w-4" />
                   Hyderabad
                 </span>
               </motion.div>
