@@ -22,6 +22,18 @@
         }
       })()
     </script>
+    <script>
+      // Ensure the SEO page works with and without a trailing slash.
+      ;(() => {
+        try {
+          if (window.location.pathname === '/interior-designers-visakhapatnam') {
+            window.location.replace('/interior-designers-visakhapatnam/')
+          }
+        } catch {
+          // ignore
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
