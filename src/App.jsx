@@ -556,6 +556,28 @@ export default function App() {
         </div>
       </section>
 
+      {/* SEO Content */}
+      <section className="border-t border-zinc-200/60 bg-white py-16 dark:border-zinc-800/60 dark:bg-zinc-950">
+        <div className="mx-auto max-w-5xl px-4 md:px-6">
+          <div className="rounded-3xl border border-zinc-200/70 bg-white p-8 shadow-sm dark:border-amber-300/15 dark:bg-zinc-950">
+            <h2 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 md:text-4xl">
+              Interior Designers in Visakhapatnam (Vizag)
+            </h2>
+            <div className="mt-5 space-y-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300 md:text-base">
+              <p>
+                DEG Interiors is a premium interior design studio in Visakhapatnam and Hyderabad specializing in modular kitchens, wardrobes, furniture, false ceilings and complete home interiors.
+              </p>
+              <p>
+                We provide modern interior design solutions for apartments, villas and commercial spaces across Vizag with a focus on clean layouts, premium materials and elegant living spaces.
+              </p>
+              <p>
+                If you are searching for interior designers in Vizag, interior designers in Visakhapatnam, or modular kitchen Vizag experts, DEG Interiors delivers premium design and execution with a clear, modern approach.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About */}
       <MotionSection
         id="about"
